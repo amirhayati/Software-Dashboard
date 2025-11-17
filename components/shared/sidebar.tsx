@@ -31,18 +31,28 @@ const sidebarGroups = [
 				href: "/dashboard",
 				icon: LayoutDashboard,
 				badge: null,
+				enabled: true,
+			},
+			{
+				title: "Ticket Management",
+				href: "/dashboard/tickets",
+				icon: FileText,
+				badge: null,
+				enabled: true,
 			},
 			{
 				title: "Analytics",
 				href: "/dashboard/analytics",
 				icon: BarChart3,
 				badge: "New",
+				enabled: false,
 			},
 			{
 				title: "Settings",
 				href: "/dashboard/settings",
 				icon: Settings,
 				badge: null,
+				enabled: true,
 			},
 		],
 	},
@@ -54,36 +64,42 @@ const sidebarGroups = [
 				href: "/dashboard/users",
 				icon: Users,
 				badge: "12",
+				enabled: false,
 			},
 			{
 				title: "Projects",
 				href: "/dashboard/projects",
 				icon: FolderKanban,
 				badge: null,
+				enabled: false,
 			},
 			{
 				title: "Documents",
 				href: "/dashboard/documents",
 				icon: FileText,
 				badge: null,
+				enabled: false,
 			},
 			{
 				title: "Calendar",
 				href: "/dashboard/calendar",
 				icon: Calendar,
 				badge: "3",
+				enabled: true,
 			},
 			{
 				title: "Auth Pages",
 				href: "/dashboard/auth",
 				icon: LogIn,
 				badge: null,
+				enabled: false,
 			},
 			{
 				title: "Error Pages",
 				href: "/dashboard/errors",
 				icon: AlertCircle,
 				badge: null,
+				enabled: false,
 			},
 		],
 	},
@@ -95,24 +111,28 @@ const sidebarGroups = [
 				href: "/dashboard/messages",
 				icon: MessageSquare,
 				badge: "5",
+				enabled: false,
 			},
 			{
 				title: "Database",
 				href: "/dashboard/database",
 				icon: Database,
 				badge: null,
+				enabled: false,
 			},
 			{
 				title: "Security",
 				href: "/dashboard/security",
 				icon: Shield,
 				badge: "!",
+				enabled: false,
 			},
 			{
 				title: "Help",
 				href: "/dashboard/help",
 				icon: HelpCircle,
 				badge: null,
+				enabled: false,
 			},
 		],
 	},
@@ -186,26 +206,45 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
 							{group.items.map((item) => {
 								const isActive = pathname === item.href;
 								const Icon = item.icon;
+								const isEnabled = item.enabled !== false;
+
+								const handleDisabledClick = (e: React.MouseEvent) => {
+									if (!isEnabled) {
+										e.preventDefault();
+										alert("You do not have access to this page");
+									}
+								};
+
+								const tooltipText = isEnabled 
+									? (isCollapsed ? item.title : undefined) 
+									: "You do not have access to this page";
 
 								return (
 									<Link
 										key={item.href}
-										href={item.href}
-										onClick={handleLinkClick}
+										href={isEnabled ? item.href : "#"}
+										onClick={(e) => {
+											handleDisabledClick(e);
+											if (isEnabled) handleLinkClick();
+										}}
 										className={cn(
-											"group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200 hover:bg-muted",
-											isActive
+											"group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+											isEnabled
+												? "cursor-pointer hover:bg-muted"
+												: "cursor-not-allowed opacity-50",
+											isActive && isEnabled
 												? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
 												: "text-muted-foreground hover:text-foreground",
+											!isEnabled && "hover:bg-transparent",
 											isCollapsed && "justify-center px-3 py-4",
 										)}
-										title={isCollapsed ? item.title : undefined}
+										title={tooltipText}
 									>
 										<Icon
 											className={cn(
 												"transition-all duration-200",
 												isCollapsed ? "h-5 w-5" : "h-4 w-4",
-												isActive && !isCollapsed && "text-primary-foreground",
+												isActive && isEnabled && !isCollapsed && "text-primary-foreground",
 											)}
 										/>
 										{!isCollapsed && (

@@ -99,10 +99,10 @@ export default function SettingsPage() {
 						</Avatar>
 						<div className="space-y-2">
 							<Label htmlFor="picture">Profile Picture</Label>
-							<Button variant="outline" size="sm" className="w-fit">
+							{/* <Button variant="outline" size="sm" className="w-fit">
 								<Camera className="mr-2 h-4 w-4" />
 								Change Picture
-							</Button>
+							</Button> */}
 						</div>
 					</div>
 					<div className="grid gap-6 md:grid-cols-2">
@@ -113,12 +113,12 @@ export default function SettingsPage() {
 								<FormItem>
 									<FormLabel>Username</FormLabel>
 									<FormControl>
-										<Input placeholder="username" {...field} />
+										<Input disabled placeholder="username" {...field} />
 									</FormControl>
-									<FormDescription>
+									{/* <FormDescription>
 										This is your public display name. It can be your real name
 										or a pseudonym.
-									</FormDescription>
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -130,12 +130,12 @@ export default function SettingsPage() {
 								<FormItem>
 									<FormLabel>Name</FormLabel>
 									<FormControl>
-										<Input placeholder="John Doe" {...field} />
+										<Input disabled placeholder="John Doe" {...field} />
 									</FormControl>
-									<FormDescription>
+									{/* <FormDescription>
 										This is your public display name. It can be your real name
 										or a pseudonym.
-									</FormDescription>
+									</FormDescription> */}
 									<FormMessage />
 								</FormItem>
 							)}
@@ -148,9 +148,9 @@ export default function SettingsPage() {
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
-									<Input placeholder="john.doe@example.com" {...field} />
+									<Input disabled placeholder="john.doe@example.com" {...field} />
 								</FormControl>
-								<FormDescription>
+								{/* <FormDescription>
 									You can manage verified email addresses in your{" "}
 									<a
 										href="/dashboard/settings/email"
@@ -159,7 +159,7 @@ export default function SettingsPage() {
 										email settings
 									</a>
 									.
-								</FormDescription>
+								</FormDescription> */}
 								<FormMessage />
 							</FormItem>
 						)}
@@ -172,20 +172,21 @@ export default function SettingsPage() {
 								<FormLabel>Bio</FormLabel>
 								<FormControl>
 									<Textarea
+									disabled
 										placeholder="Tell us a little bit about yourself"
 										className="resize-none"
 										{...field}
 									/>
 								</FormControl>
-								<FormDescription>
+								{/* <FormDescription>
 									You can <span>@mention</span> other users and organizations to
 									link to them.
-								</FormDescription>
+								</FormDescription> */}
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Update profile</Button>
+					{/* <Button type="submit">Update profile</Button> */}
 				</form>
 			</Form>
 		</div>
