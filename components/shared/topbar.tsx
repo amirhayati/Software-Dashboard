@@ -11,8 +11,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AppSwitcher } from "./app-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
 
 
 
@@ -34,23 +34,22 @@ export function Topbar() {
 			{/* Right Section */}
 			<div className="flex items-center gap-3">
 				{/* App Switcher */}
-				<AppSwitcher />
+				{/* <AppSwitcher /> */}
 
 				{/* Theme Toggle */}
 				<ThemeToggle />
 
 				{/* Notifications */}
-				<Button
-					variant="ghost"
-					size="icon"
+				<Link
+					href={"/dashboard/tickets"}
 					className="relative h-9 w-9 hover:bg-muted transition-colors"
 					aria-label="Notifications"
 				>
-					<Bell className="h-4 w-4" />
-					<span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
+					<Bell className="absolute h-4 w-4 top-3 left-1" />
+					<span className="absolute -top-0 right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
 						3
 					</span>
-				</Button>
+				</Link>
 
 				{/* Profile */}
 				<DropdownMenu>

@@ -4,14 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 interface Comment {
   id: string;
   author: string;
   text: string;
   timestamp: string;
 }
-
 interface Ticket {
   id: string;
   title: string;
@@ -24,7 +22,6 @@ interface Ticket {
   comments?: Comment[];
   reviewed?: boolean;
 }
-
 // Helper function to convert Gregorian date to Jalali using Intl
 function gregorianToJalali(date: Date): string {
   return date.toLocaleDateString('fa-IR', {
@@ -33,7 +30,6 @@ function gregorianToJalali(date: Date): string {
     day: '2-digit'
   });
 }
-
 const getStatusPriority = (status: "open" | "in-progress" | "resolved"): number => {
   switch (status) {
     case "open": return 1;
@@ -42,7 +38,6 @@ const getStatusPriority = (status: "open" | "in-progress" | "resolved"): number 
     default: return 4;
   }
 };
-
 const persianNames = [
   "احمد شریفی",
   "فاطمه کریمی",
@@ -95,80 +90,111 @@ const persianNames = [
   "فیروز حاج‌حسنی",
   "سپهر شاکری",
 ];
-
 const ticketDescriptions = [
-  "کاربران نمی‌توانند به برنامه وارد شوند. پیام خطای 404 نمایش داده می‌شود.",
-  "بارگذاری صفحات بسیار کند است. صفحات بیش از 5 ثانیه برای بارگذاری کامل زمان می‌برد.",
-  "هنگام پر کردن فرم ثبت‌نام، سیستم پیام خطای غیرمنتظره نمایش می‌دهد.",
-  "داده‌ها به درستی ذخیره نمی‌شوند. برخی از اطلاعات ورودی از بین می‌روند.",
-  "سیستم نمی‌تواند به پایگاه داده متصل شود. پیام خطای Connection refused دریافت می‌کنند.",
-  "سیستم احراز هویت دو مرحله‌ای کار نمی‌کند. کدهای تایید دریافت نمی‌شوند.",
-  "استفاده از حافظه رم هر دقیقه 10 درصد افزایش می‌یابد.",
-  "اتصال اینترنت کاربران به طور ناگهانی قطع می‌شود.",
-  "گزارش‌های خروجی به صورت صحیح تولید نمی‌شوند. اعداد نادرست هستند.",
-  "سیستم فیلتر جستجو درست کار نمی‌کند و نتایج نامرتبط نمایش می‌دهد.",
-  "دکمه‌های ذخیره تغییرات گاهی کار نمی‌کنند.",
-  "مشکل در صادرات داده‌ها به فایل Excel.",
-  "سیستم اطلاع‌رسانی ایمیل کار نمی‌کند.",
-  "خروج از حساب کاربری نادرست انجام می‌شود.",
-  "کش کردن داده‌ها منجر به داده‌های قدیمی شده است.",
-  "پسورد تغییر نمی‌کند و خطا نمایش می‌دهد.",
-  "سیستم مجوز دسترسی درست کار نمی‌کند.",
-  "فایل‌های آپلود شده حذف نمی‌شوند.",
-  "صفحه تنظیمات بارگذاری نمی‌شود.",
-  "دکمه بازگشت به صفحه قبل کار نمی‌کند.",
-  "نرم‌افزار کرش می‌کند هنگام اجرای دستورات پیچیده.",
-  "مشکل در شناسایی سخت‌افزار USB متصل.",
-  "سرعت پردازنده کاهش یافته و فن‌ها با صدای بلند کار می‌کنند.",
-  "ویروس یا بدافزار سیستم را کند کرده است.",
-  "صفحه نمایش سیاه می‌شود پس از بیدار شدن از حالت خواب.",
-  "اتصال Wi-Fi ناپایدار است و مدام قطع و وصل می‌شود.",
-  "فایل‌های سیستم حذف شده و بازیابی نمی‌شوند.",
-  "به‌روزرسانی ویندوز با خطا مواجه شده است.",
-  "پرینتر به شبکه متصل نمی‌شود.",
-  "باتری لپ‌تاپ سریع خالی می‌شود.",
+  "هنگام تلاش برای ورود، خطای ۴۰۴ یافت نشد دریافت می‌شود. مدیریت مسیر برای نقطه پایانی /auth/login حل نمی‌شود.",
+  "زمان بارگذاری صفحات پیشخوان بیش از ۵ ثانیه است. حجم بسته جاوااسکریپت بیش از ۲ مگابایت و تصاویر فشرده نشده‌اند.",
+  "استثنای اعتبارسنجی در اعتبارسنج پس‌زمینه برای فیلد ایمیل در فرم ثبت‌نام پرتاب می‌شود. الگوی منظم ناسازگار است.",
+  "بازگشت تراکنش در ذخیره‌سازی داده‌ها رخ می‌دهد. نقض محدودیت در رابطه کلید خارجی جدول کاربران.",
+  "تایم‌اوت اتصال به پایگاه داده پسست‌اس‌کیوال. اندازه استخر بیشینه تجاوز کرده و صف پرس‌وجو پر شده است.",
+  "اعتبارسنجی کد توتی‌پی در احراز هویت دو مرحله‌ای شکست می‌خورد. انحراف زمانی بین مشتری و سرور همگام‌سازی ان‌تی‌پی نشده است.",
+  "نشت حافظه در فرآیند نود.جی‌اس. استفاده از هیپ هر ۶۰ ثانیه ۱۰ درصد افزایش می‌یابد بدون فعال‌سازی جمع‌آوری زباله.",
+  "بازنشانی اتصال تی‌سی‌پی توسط دیوار آتش. بسته سین-ایک به دلیل محدودیت نرخ رها می‌شود.",
+  "خط لوله تجمیع در مانگودبی برای تولید گزارش شکست می‌خورد. مرحله گروه‌بندی با مسیر فیلد نامعتبر.",
+  "فیلتر پرس‌وجوی الستیک‌سرچ با تجزیه‌گر نادرست پیکربندی شده. ریشه‌یابی توکن‌سازی برای کلمات فارسی نادرست است.",
+  "جداسازی شنونده رویداد در دستکاری دی‌او‌ام شکست می‌خورد. چرخه مرجع حافظه در محدوده بسته.",
+  "خروجی سی‌اس‌وی از طریق کتابخانه آپاچی پی‌اوآی سقوط می‌کند. خطای کمبود حافظه در رندرینگ شیت با مجموعه داده بزرگ.",
+  "شکست رله اس‌ام‌تی‌پی در نودمی‌لر. عدم تطابق امضای دی‌کیم و رکورد اس‌پی‌اف نامعتبر.",
+  "آسیب‌پذیری تصاحب جلسه. بازتولید توکن سی‌اس‌آر‌اف پس از خروج پیاده‌سازی نشده.",
+  "تأخیر ابطال کش ردیش. انقضای تی‌تی‌ال همگام با به‌روزرسانی پایگاه داده تأخیر دارد.",
+  "شکست اعتبارسنجی هش بی‌کریپت. عدم تطابق دور نمک در نقطه پایانی به‌روزرسانی رمز عبور.",
+  "خطای اعمال سیاست آر‌بی‌ای‌سی. واسط میانی برای کنترل دسترسی مبتنی بر نقش رد می‌شود.",
+  "شکست ایدم‌پوتانسی حذف شی اس۳. خاتمه بارگذاری چندبخشی ناقص و متاداده کهنه.",
+  "عدم تطابق هیدراتاسیون اس‌اس‌آر در نکست.جی‌اس. راه‌اندازی حالت سمت مشتری با ای‌اچ‌تی‌ام‌ال رندر شده سرور تعارض دارد.",
+  "از دست رفتن حالت دکمه بازگشت مرورگر. فشار حالت تاریخچه بدون سریال‌سازی حالت.",
+  "تلاش تزریق اس‌کیوال مسدود شد اما تجزیه پرس‌وجو شکست. عدم تطابق پارامتر بستن دستور آماده.",
+  "شمارش دستگاه یو‌اس‌بی اچ‌آی‌دی در درایور هسته شکست. عدم تطابق شناسه فروشنده با قوانین یودو.",
+  "فعال‌سازی خفه‌سازی حرارتی سی‌پی‌یو. دمای هسته بیش از ۸۵ درجه سانتی‌گراد و مقیاس فرکانس به ۸۰۰ مگاهرتز کاهش می‌یابد.",
+  "پایداری روت‌کیت از طریق ال‌دی_پری‌لود. تزریق کتابخانه مخرب قلاب لینک‌کننده پویا.",
+  "شکست فعال‌سازی سیگنال تعلیق دی‌پی‌ام‌اس. افزونه سرور ایکس غیرفعال و حلقه کنترل نور پس‌زمینه.",
+  "تایم‌اوت دست‌دهی ۸۰۲.۱۱. احراز هویت دبلیو‌پی‌ای۳ اس‌ای‌ای با پارامتر گروه دی‌اچ ضعیف.",
+  "شکست بازپخش ژورنال ان‌تی‌اف‌اس پس از سقوط. فساد $LogFile و تعمیر اف‌اس‌سی‌کی مورد نیاز.",
+  "خطای استقرار به‌روزرسانی دبلیو‌اس‌یو‌اس. عدم تطابق هش فایل کَب و قطع انتقال بی‌تس.",
+  "شکست مذاکره پروتکل آی‌پی‌پی. پس‌زمینه چاپگر کاپس با مجموعه رمزنگاری تی‌ال‌اس ۱.۳ ناسازگار.",
+  "خطای نظرسنجی وضعیت باتری ای‌سی‌پی‌آی. تجزیه جدول اس‌ام‌بی‌آی‌اس شکست و برآورد ظرفیت نادقیق.",
 ];
-
 const ticketTitles = [
-  "خرابی دسترسی به برنامه",
-  "سرعت کند برنامه",
-  "خطا در فرم ورودی",
-  "مشکل در ذخیره داده‌ها",
-  "اتصال پایگاه داده شکسته است",
-  "مشکل در احراز هویت کاربر",
-  "نشتِ حافظه در برنامه",
-  "قطع اتصال ناگهانی شبکه",
-  "خطا در گزارش‌ها",
-  "سیستم جستجو کار نمی‌کند",
-  "کرش نرم‌افزار",
-  "مشکل USB",
-  "کاهش سرعت CPU",
-  "عفونت ویروسی",
-  "مشکل نمایشگر",
+  "خطای ۴۰۴ در آی‌پی لاگین",
+  "بهینه‌سازی عملکرد پیشخوان",
+  "شکست اعتبارسنجی در فرم ثبت‌نام",
+  "خطای تراکنش در پایداری داده",
+  "سرریز استخر اتصال پایگاه داده",
+  "مشکل همگام‌سازی توتی‌پی ۲اف‌ای",
+  "شناسایی نشت حافظه هیپ",
+  "ناهنجاری بازنشانی تی‌سی‌پی شبکه",
+  "باگ خط لوله تجمیع مانگودبی",
+  "کاهش ارتباط‌پذیری جستجوی الستیک‌سرچ",
+  "نشت رویداد دی‌او‌ام",
+  "سقوط خروجی اکسل کمبود حافظه",
+  "شکست اعتبارسنجی دی‌کیم/اس‌پی‌اف ایمیل",
+  "نقض امنیت جلسه",
+  "نقض سازگاری کش",
+  "عدم تطابق هش رمز عبور",
+  "رد واسط میانی آر‌بی‌ای‌سی",
+  "ایدم‌پوتانسی حذف ذخیره فایل",
+  "عدم تطابق هیدراتاسیون اس‌اس‌آر",
+  "از دست رفتن حالت تاریخچه مرورگر",
+  "اثر جانبی مسدودسازی تزریق اس‌کیوال",
+  "شمارش درایور دستگاه یو‌اس‌بی",
+  "شکست مدیریت حرارتی سی‌پی‌یو",
+  "شناسایی بارگذار روت‌کیت",
+  "خطای سیگنال تعلیق نمایش",
+  "تایم‌اوت احراز وای‌فای دبلیو‌پی‌ای۳",
+  "فساد ژورنال فایل‌سیستم",
+  "عدم تطابق هش به‌روزرسانی ویندوز",
+  "مذاکره تی‌ال‌اس آی‌پی‌پی چاپگر",
+  "نادقیق نظرسنجی باتری ای‌سی‌پی‌آی",
 ];
-
 const categories = ["نرم افزار", "سخت افزار", "شبکه", "سامانه", "پایگاه داده", "امنیت"];
-
-const sampleCommentResponses = [
-  "مشکل شناسایی شد و در حال رفع می‌باشد.",
-  "درخواست را بررسی کردیم و به زودی حل خواهد شد.",
-  "این موضوع با تیم فنی مطرح شده است.",
-  "موارد گزارش شده را اصلاح کردیم.",
-  "به دلیل اولویت بالا در دستور کار قرار گرفته است.",
-  "بروزرسانی جدید این مشکل را حل می‌کند.",
-  "از طریق تیکت شماره ۱۲۳۴ در حال بررسی است.",
-  "برنامه‌ریزی برای رفع در نسخه بعدی شده است.",
-  "کاربران دیگری نیز این مشکل را گزارش کرده‌اند.",
-  "راه حل موقتی برای شما ارسال خواهد شد.",
+const supportAcks = [
+  "تیکت دریافت شد. فایل‌های لاگ را بررسی می‌کنیم.",
+  "مشکل را تکرار کردیم. تحلیل علت ریشه شروع شده.",
+  "اولویت بالا تنظیم شد. تیم توسعه割り当て گردید.",
+  "جزئیات محیط نیاز است: نسخه سیستم عامل، نوع مرورگر.",
 ];
-
+const userQuestions = [
+  "چرا این استثنا پرتاب می‌شود؟ ردپای پشته کامل را بفرستید.",
+  "راه‌حل موقت برای تولید چیست؟",
+  "آیا وصله فوری در نقشه راه هست؟ زمان تقریبی؟",
+  "تغییرات پیکربندی لازم است؟ نمونه یام‌ال بدهید.",
+  "هشدار نظارت برای این معیار راه‌اندازی کنیم؟",
+  "تعارض نسخه وابستگی است؟ فهرست الزامات چک شد؟",
+  "پیکربندی تعادل‌کننده بار تأثیر دارد؟ شکست بررسی سلامت؟",
+  "لاگ‌های کانتینر داکر را به اشتراک بگذاریم؟",
+  "محدودیت نرخ آی‌پی فعال شده؟ زمان بازنشانی سهمیه؟",
+  "قانون دیوار آتش مسدود کرده؟ خروجی ردیابی مسیر؟",
+];
+const supportAnswers = [
+  "استثنا به دلیل اشاره‌گر خالی در اعتبارسنج است. رفع در درخواست کش #۴۵۶ ادغام شد.",
+  "راه‌حل موقت: پاک کردن کش و راه‌اندازی مجدد سرویس. رفع دائمی نسخه ۲.۱.۳.",
+  "زمان تقریبی ۴۸ ساعت. موارد آزمون در صحنه‌سازی گذرانده شده.",
+  "نمونه پیکربندی: احراز هویت: { ttl: ۳۶۰۰ }. استقرار از طریق کیوبکتل اعمال.",
+  "راه‌اندازی هشدار: قانون پرومته‌وس برای استفاده_هیپ >۸۰%. یام‌ال پیوست.",
+  "تعارض نسخه با لادش ۴.۱۷. مشکلی در ۵.ایکس نیست.",
+  "بررسی سلامت تعادل‌کننده /healthz نقطه پایانی. فاصله ۱۰ ثانیه تنظیم کنید.",
+  "لاگ‌ها: داکر لاگ‌ها -ف کانتینر_آی‌دی | گِرِپ خطا. خروجی را به اشتراک بگذارید.",
+  "محدودیت نرخ ۱۰۰ درخواست در دقیقه. بازنشانی در نیمه‌شب یوتی‌سی.",
+  "دیوار آتش: یو‌اف‌دبلو اجازه ۴۴۳/تی‌سی‌پی. ردیابی: بدون از دست رفتن بسته.",
+];
+const generateCommentText = (ticketIndex: number, commentIndex: number): string => {
+  const responses = [...supportAcks, ...userQuestions, ...supportAnswers];
+  return responses[(ticketIndex + commentIndex) % responses.length];
+};
 // Generate 375 tickets with proper date distribution
 const generateTickets = (): Ticket[] => {
   const tickets: Ticket[] = [];
   const priorities: Array<"high" | "medium" | "low"> = ["high", "medium", "low"];
   const today = new Date();
   for (let i = 1; i <= 375; i++) {
-    // Distribute tickets evenly across 6 months (from today backwards to 6 months ago)
     const daysOffset = Math.floor(((375 - i) / 375) * 183);
     const ticketDate = new Date(today.getTime() - daysOffset * 24 * 60 * 60 * 1000);
     const jalaliDate = gregorianToJalali(ticketDate);
@@ -180,19 +206,20 @@ const generateTickets = (): Ticket[] => {
     } else {
       status = "in-progress";
     }
-    // Only 2 tickets have no comments (first and last)
     const hasComments = i !== 1 && i !== 375;
     const comments: Comment[] = [];
     if (hasComments) {
-      // Add 1-3 comments for each ticket
-      const commentCount = (i % 3) + 1;
+      const commentCount = 2 + Math.floor(Math.random() * 3); // 2-4
+      let isSupportTurn = true; // Start with support ack
       for (let j = 0; j < commentCount; j++) {
+        const author = isSupportTurn ? "تیم پشتیبانی" : `کاربر ${i % 5}`;
         comments.push({
           id: `C-${i}-${j}`,
-          author: j === 0 ? "Support Team" : `User ${i % 5}`,
-          text: sampleCommentResponses[i % sampleCommentResponses.length],
+          author,
+          text: generateCommentText(i, j),
           timestamp: jalaliDate,
         });
+        isSupportTurn = !isSupportTurn; // Alternate
       }
     }
     const userName = persianNames[i % persianNames.length];
@@ -209,23 +236,19 @@ const generateTickets = (): Ticket[] => {
       reviewed: i % 5 === 0,
     });
   }
-  // Sort tickets by status priority first (open, in-progress, resolved), then by date descending (newest first)
   return tickets.sort((a, b) => {
     const statusDiff = getStatusPriority(a.status) - getStatusPriority(b.status);
     if (statusDiff !== 0) return statusDiff;
-    // Same status, compare dates descending
     const dateA = a.createdAt.split('/').map(Number);
     const dateB = b.createdAt.split('/').map(Number);
-    // Compare year, month, day in reverse order (newest first)
     if (dateA[0] !== dateB[0]) return dateB[0] - dateA[0];
     if (dateA[1] !== dateB[1]) return dateB[1] - dateA[1];
     if (dateA[2] !== dateB[2]) return dateB[2] - dateA[2];
     return 0;
   });
 };
-
 const tickets = generateTickets();
-
+const softwareTickets = tickets.filter(t => t.category === "نرم افزار");
 const getPriorityColor = (priority: "high" | "medium" | "low") => {
   switch (priority) {
     case "high":
@@ -238,7 +261,6 @@ const getPriorityColor = (priority: "high" | "medium" | "low") => {
       return "bg-gray-100 text-gray-800";
   }
 };
-
 const getStatusColor = (status: "open" | "in-progress" | "resolved") => {
   switch (status) {
     case "open":
@@ -251,25 +273,22 @@ const getStatusColor = (status: "open" | "in-progress" | "resolved") => {
       return "bg-gray-100 text-gray-800";
   }
 };
-
 const getStatusLabel = (status: string) => {
   const labels: { [key: string]: string } = {
-    open: "Open",
-    "in-progress": "In Progress",
-    resolved: "Resolved",
+    open: "باز",
+    "in-progress": "در حال انجام",
+    resolved: "حل شده",
   };
   return labels[status] || status;
 };
-
 const getPriorityLabel = (priority: string) => {
   const labels: { [key: string]: string } = {
-    high: "High",
-    medium: "Medium",
-    low: "Low",
+    high: "بالا",
+    medium: "متوسط",
+    low: "پایین",
   };
   return labels[priority] || priority;
 };
-
 export default function TicketsPage() {
   const [expandedTicket, setExpandedTicket] = useState<string | null>(null);
   const [ticketComments, setTicketComments] = useState<{ [key: string]: Comment[] }>({});
@@ -278,16 +297,15 @@ export default function TicketsPage() {
   const [reviewedTickets, setReviewedTickets] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 15;
-  const totalPages = Math.ceil(tickets.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(softwareTickets.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedTickets = tickets.slice(startIndex, endIndex);
-
+  const paginatedTickets = softwareTickets.slice(startIndex, endIndex);
   const handleAddComment = (ticketId: string) => {
     if (!commentText[ticketId]?.trim()) return;
     const newComment: Comment = {
       id: Date.now().toString(),
-      author: "You",
+      author: "شما",
       text: commentText[ticketId],
       timestamp: new Date().toLocaleString("fa-IR"),
     };
@@ -300,7 +318,6 @@ export default function TicketsPage() {
       [ticketId]: "",
     }));
   };
-
   const handleReviewTicket = (ticketId: string) => {
     setReviewedTickets((prev) => {
       const newSet = new Set(prev);
@@ -312,10 +329,8 @@ export default function TicketsPage() {
       return newSet;
     });
   };
-
   return (
     <div className="space-y-8">
-      {/* Header Section */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <AlertCircle className="h-8 w-8 text-red-600" />
@@ -324,10 +339,9 @@ export default function TicketsPage() {
           </h1>
         </div>
         <p className="text-muted-foreground text-lg">
-          List of 375 software and system-related issues and problems reported from the past 6 months
+          List of {softwareTickets.length} software problems of site and management app reported from the past 6 months
         </p>
       </div>
-      {/* Statistics */}
       <div className="grid gap-6 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-3">
@@ -336,7 +350,7 @@ export default function TicketsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{tickets.length}</div>
+            <div className="text-3xl font-bold">{softwareTickets.length}</div>
             <p className="text-xs text-muted-foreground mt-2">All tickets</p>
           </CardContent>
         </Card>
@@ -348,7 +362,7 @@ export default function TicketsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-blue-600">
-              {tickets.filter((t) => t.status === "open").length}
+              {softwareTickets.filter((t) => t.status === "open").length}
             </div>
             <p className="text-xs text-muted-foreground mt-2">Pending review</p>
           </CardContent>
@@ -361,7 +375,7 @@ export default function TicketsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-purple-600">
-              {tickets.filter((t) => t.status === "in-progress").length}
+              {softwareTickets.filter((t) => t.status === "in-progress").length}
             </div>
             <p className="text-xs text-muted-foreground mt-2">
               Being resolved
@@ -376,13 +390,12 @@ export default function TicketsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-green-600">
-              {tickets.filter((t) => t.status === "resolved").length}
+              {softwareTickets.filter((t) => t.status === "resolved").length}
             </div>
             <p className="text-xs text-muted-foreground mt-2">Resolved issues</p>
           </CardContent>
         </Card>
       </div>
-      {/* Tickets List */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">Ticket Details</h2>
@@ -396,7 +409,6 @@ export default function TicketsPage() {
               key={ticket.id}
               className="hover:shadow-md transition-all duration-200 cursor-pointer overflow-hidden"
             >
-              {/* Collapsed View */}
               <div
                 onClick={() =>
                   setExpandedTicket(
@@ -425,7 +437,7 @@ export default function TicketsPage() {
                       </Badge>
                       <Badge variant="outline">{ticket.category}</Badge>
                       {reviewedTickets.has(ticket.id) && (
-                        <Badge className="bg-green-100 text-green-800">Reviewed</Badge>
+                        <Badge className="bg-green-100 text-green-800">بررسی شده</Badge>
                       )}
                       <span className="text-xs text-muted-foreground">
                         {ticket.createdAt}
@@ -446,12 +458,11 @@ export default function TicketsPage() {
                   </Button>
                 </div>
               </div>
-              {/* Expanded View */}
               {expandedTicket === ticket.id && (
                 <div className="border-t px-6 py-4 bg-muted/30">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-semibold mb-2">Full Description</h4>
+                      <h4 className="font-semibold mb-2">توضیح کامل</h4>
                       <p className="text-sm text-foreground leading-relaxed">
                         {ticket.description}
                       </p>
@@ -459,23 +470,21 @@ export default function TicketsPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-xs text-muted-foreground mb-1">
-                          Created Date
+                          تاریخ ایجاد
                         </p>
                         <p className="font-medium">{ticket.createdAt}</p>
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground mb-1">
-                          Last Updated
+                          آخرین به‌روزرسانی
                         </p>
                         <p className="font-medium">{ticket.updatedAt}</p>
                       </div>
                     </div>
-                    {/* Comments Section */}
                     <div className="border-t pt-4">
-                      <h4 className="font-semibold mb-3">Comments ({ticketComments[ticket.id]?.length || 0})</h4>
-                      {/* Existing Comments */}
+                      <h4 className="font-semibold mb-3">نظرات ({ticketComments[ticket.id]?.length || ticket.comments?.length || 0})</h4>
                       <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
-                        {ticketComments[ticket.id]?.map((comment) => (
+                        {(ticketComments[ticket.id] || ticket.comments || []).map((comment) => (
                           <div key={comment.id} className="bg-white p-3 rounded border border-gray-200">
                             <div className="flex justify-between items-start mb-1">
                               <p className="font-medium text-sm">{comment.author}</p>
@@ -485,7 +494,6 @@ export default function TicketsPage() {
                           </div>
                         ))}
                       </div>
-                      {/* Comment Form */}
                       {!showCommentForm[ticket.id] ? (
                         <Button
                           size="sm"
@@ -493,12 +501,12 @@ export default function TicketsPage() {
                           onClick={() => setShowCommentForm((prev) => ({ ...prev, [ticket.id]: true }))}
                           className="w-full"
                         >
-                          Add Comment
+                          افزودن نظر
                         </Button>
                       ) : (
                         <div className="space-y-2">
                           <textarea
-                            placeholder="Write your comment here..."
+                            placeholder="نظرتان را اینجا بنویسید..."
                             className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             rows={3}
                             value={commentText[ticket.id] || ""}
@@ -512,27 +520,26 @@ export default function TicketsPage() {
                                 setShowCommentForm((prev) => ({ ...prev, [ticket.id]: false }));
                               }}
                             >
-                              Post Comment
+                              ارسال نظر
                             </Button>
                             <Button
                               size="sm"
                               variant="outline"
                               onClick={() => setShowCommentForm((prev) => ({ ...prev, [ticket.id]: false }))}
                             >
-                              Cancel
+                              لغو
                             </Button>
                           </div>
                         </div>
                       )}
                     </div>
-                    {/* Action Buttons */}
                     <div className="flex gap-2 border-t pt-4">
                       <Button
                         size="sm"
                         variant={reviewedTickets.has(ticket.id) ? "default" : "outline"}
                         onClick={() => handleReviewTicket(ticket.id)}
                       >
-                        {reviewedTickets.has(ticket.id) ? "✓ Reviewed" : "Review"}
+                        {reviewedTickets.has(ticket.id) ? "✓ بررسی شده" : "بررسی"}
                       </Button>
                     </div>
                   </div>
@@ -541,10 +548,9 @@ export default function TicketsPage() {
             </Card>
           ))}
         </div>
-        {/* Pagination Controls */}
         <div className="flex items-center justify-between border-t pt-6">
           <div className="text-sm text-muted-foreground">
-            Showing {startIndex + 1} to {Math.min(endIndex, tickets.length)} of {tickets.length} tickets
+            Showing {startIndex + 1} to {Math.min(endIndex, softwareTickets.length)} of {softwareTickets.length} tickets
           </div>
           <div className="flex gap-2 items-center">
             <Button
@@ -561,37 +567,29 @@ export default function TicketsPage() {
                 const pages: (number | string)[] = [];
                 const maxPagesToShow = 5;
                 if (totalPages <= maxPagesToShow) {
-                  // Show all pages if total is less than max
                   for (let i = 1; i <= totalPages; i++) {
                     pages.push(i);
                   }
                 } else {
-                  // Always show first page
                   pages.push(1);
-                  // Calculate range around current page
                   const halfWindow = Math.floor(maxPagesToShow / 2);
                   let start = Math.max(2, currentPage - halfWindow);
                   let end = Math.min(totalPages - 1, currentPage + halfWindow);
-                  // Adjust if too close to start or end
                   if (start === 2) {
                     end = Math.min(totalPages - 1, maxPagesToShow - 1);
                   }
                   if (end === totalPages - 1) {
                     start = Math.max(2, totalPages - maxPagesToShow + 2);
                   }
-                  // Add ellipsis if needed
                   if (start > 2) {
                     pages.push("...");
                   }
-                  // Add middle pages
                   for (let i = start; i <= end; i++) {
                     pages.push(i);
                   }
-                  // Add ellipsis if needed
                   if (end < totalPages - 1) {
                     pages.push("...");
                   }
-                  // Always show last page
                   pages.push(totalPages);
                 }
                 return pages.map((page, idx) => {
@@ -632,7 +630,6 @@ export default function TicketsPage() {
     </div>
   );
 }
-
 // Helper function for cn
 function cn(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(Boolean).join(" ");
