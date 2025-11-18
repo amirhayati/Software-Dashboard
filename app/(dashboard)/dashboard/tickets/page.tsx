@@ -309,10 +309,13 @@ export default function TicketsPage() {
       text: commentText[ticketId],
       timestamp: new Date().toLocaleString("fa-IR"),
     };
-    setTicketComments((prev) => ({
-      ...prev,
-      [ticketId]: [...(prev[ticketId] || []), newComment],
-    }));
+    setTicketComments((prev) => {
+      const originalComments = tickets.find(t => t.id === ticketId)?.comments || [];
+      return {
+        ...prev,
+        [ticketId]: [...(prev[ticketId] || originalComments), newComment],
+      };
+    });
     setCommentText((prev) => ({
       ...prev,
       [ticketId]: "",
