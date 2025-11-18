@@ -5,11 +5,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -20,7 +18,6 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Camera } from "lucide-react";
 
 const profileFormSchema = z.object({
 	username: z
@@ -47,6 +44,22 @@ const profileFormSchema = z.object({
 	bio: z.string().max(500, {
 		message: "Bio must not be longer than 500 characters.",
 	}),
+	nationalId: z
+		.string()
+		.min(10, {
+			message: "National ID must be exactly 10 characters.",
+		})
+		.max(10, {
+			message: "National ID must be exactly 10 characters.",
+		}),
+	phone: z
+		.string()
+		.min(10, {
+			message: "Phone must be at least 10 characters.",
+		})
+		.max(15, {
+			message: "Phone must not be longer than 15 characters.",
+		}),
 	urls: z
 		.array(
 			z.object({
@@ -60,6 +73,8 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database
 const defaultValues: Partial<ProfileFormValues> = {
+	name: "امیر رضا موذنی",
+	nationalId: "0640461514",
 	bio: "I own a computer.",
 	urls: [
 		{ value: "https://shadcn.com" },
@@ -94,8 +109,8 @@ export default function SettingsPage() {
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 					<div className="flex items-center gap-6">
 						<Avatar className="h-20 w-20">
-							<AvatarImage src="/avatars/01.png" alt="@username" />
-							<AvatarFallback>JD</AvatarFallback>
+							<AvatarImage src="/user-logo.png" alt="امیر رضا موذنی" />
+							<AvatarFallback>ام</AvatarFallback>
 						</Avatar>
 						<div className="space-y-2">
 							<Label htmlFor="picture">Profile Picture</Label>
@@ -113,7 +128,7 @@ export default function SettingsPage() {
 								<FormItem>
 									<FormLabel>Username</FormLabel>
 									<FormControl>
-										<Input disabled placeholder="username" {...field} />
+										<Input disabled placeholder="AmirReza" {...field} />
 									</FormControl>
 									{/* <FormDescription>
 										This is your public display name. It can be your real name
@@ -130,7 +145,7 @@ export default function SettingsPage() {
 								<FormItem>
 									<FormLabel>Name</FormLabel>
 									<FormControl>
-										<Input disabled placeholder="John Doe" {...field} />
+										<Input disabled placeholder="امیر رضا موذنی" {...field} />
 									</FormControl>
 									{/* <FormDescription>
 										This is your public display name. It can be your real name
@@ -140,6 +155,20 @@ export default function SettingsPage() {
 								</FormItem>
 							)}
 						/>
+						<FormField
+							control={form.control}
+							name="nationalId"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>NationalId</FormLabel>
+									<FormControl>
+										<Input disabled placeholder="0640461514" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						
 					</div>
 					<FormField
 						control={form.control}

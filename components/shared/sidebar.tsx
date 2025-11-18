@@ -228,7 +228,7 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
 											if (isEnabled) handleLinkClick();
 										}}
 										className={cn(
-											"group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+											"group flex items-centergap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
 											isEnabled
 												? "cursor-pointer hover:bg-muted"
 												: "cursor-not-allowed opacity-50",
@@ -236,19 +236,19 @@ export function Sidebar({ onMobileClose }: SidebarProps) {
 												? "bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
 												: "text-muted-foreground hover:text-foreground",
 											!isEnabled && "hover:bg-transparent",
-											isCollapsed && "justify-center px-3 py-4",
+											isCollapsed && "px-auto w-full py-4 justify-center ",
 										)}
 										title={tooltipText}
 									>
 										<Icon
 											className={cn(
-												"transition-all duration-200",
+												"flex-shrink-0 transition-all duration-200",
 												isCollapsed ? "h-5 w-5" : "h-4 w-4",
-												isActive && isEnabled && !isCollapsed && "text-primary-foreground",
+												isActive && isEnabled && "text-primary-foreground",
 											)}
 										/>
 										{!isCollapsed && (
-											<span className="group-hover:translate-x-0.5 transition-transform duration-200">
+											<span className="group-hover:translate-x-0.5 transition-transform duration-200 min-w-0 truncate">
 												{item.title}
 											</span>
 										)}
