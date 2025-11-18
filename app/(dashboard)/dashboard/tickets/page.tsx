@@ -189,24 +189,24 @@ const generateCommentText = (ticketIndex: number, commentIndex: number): string 
   const responses = [...supportAcks, ...userQuestions, ...supportAnswers];
   return responses[(ticketIndex + commentIndex) % responses.length];
 };
-// Generate 375 tickets with proper date distribution
+// Generate 750 tickets with proper date distribution
 const generateTickets = (): Ticket[] => {
   const tickets: Ticket[] = [];
   const priorities: Array<"high" | "medium" | "low"> = ["high", "medium", "low"];
   const today = new Date();
-  for (let i = 1; i <= 375; i++) {
-    const daysOffset = Math.floor(((375 - i) / 375) * 183);
+  for (let i = 1; i <= 750; i++) {
+    const daysOffset = Math.floor(((750 - i) / 750) * 183);
     const ticketDate = new Date(today.getTime() - daysOffset * 24 * 60 * 60 * 1000);
     const jalaliDate = gregorianToJalali(ticketDate);
     let status: "open" | "in-progress" | "resolved";
-    if (i <= 370) {
+    if (i <= 740) {
       status = "resolved";
-    } else if (i <= 372) {
+    } else if (i <= 744) {
       status = "open";
     } else {
       status = "in-progress";
     }
-    const hasComments = i !== 1 && i !== 375;
+    const hasComments = i !== 1 && i !== 750;
     const comments: Comment[] = [];
     if (hasComments) {
       const commentCount = 2 + Math.floor(Math.random() * 3); // 2-4
@@ -224,7 +224,7 @@ const generateTickets = (): Ticket[] => {
     }
     const userName = persianNames[i % persianNames.length];
     tickets.push({
-      id: userName,
+      id: `${userName}-${i}`,
       title: ticketTitles[i % ticketTitles.length],
       description: ticketDescriptions[i % ticketDescriptions.length],
       priority: priorities[i % 3],
@@ -437,7 +437,7 @@ export default function TicketsPage() {
                       </Badge>
                       <Badge variant="outline">{ticket.category}</Badge>
                       {reviewedTickets.has(ticket.id) && (
-                        <Badge className="bg-green-100 text-green-800">بررسی شده</Badge>
+                        <Badge className="bg-black-100 text-green-800">بررسی شده</Badge>
                       )}
                       <span className="text-xs text-muted-foreground">
                         {ticket.createdAt}
@@ -485,7 +485,7 @@ export default function TicketsPage() {
                       <h4 className="font-semibold mb-3">نظرات ({ticketComments[ticket.id]?.length || ticket.comments?.length || 0})</h4>
                       <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
                         {(ticketComments[ticket.id] || ticket.comments || []).map((comment) => (
-                          <div key={comment.id} className="bg-white p-3 rounded border border-gray-200">
+                          <div key={comment.id} className="bg-gray-100 dark:bg-black  p-3 rounded border border-gray-200">
                             <div className="flex justify-between items-start mb-1">
                               <p className="font-medium text-sm">{comment.author}</p>
                               <p className="text-xs text-muted-foreground">{comment.timestamp}</p>
