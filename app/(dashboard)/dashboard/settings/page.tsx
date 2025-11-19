@@ -177,7 +177,7 @@ export default function SettingsPage() {
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
-									<Input disabled placeholder="john.doe@example.com" {...field} />
+									<Input disabled placeholder="amirrezamoazeni2013@gmail.com" {...field} />
 								</FormControl>
 								{/* <FormDescription>
 									You can manage verified email addresses in your{" "}
