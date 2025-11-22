@@ -91,99 +91,59 @@ const persianNames = [
   "سپهر شاکری",
 ];
 const ticketDescriptions = [
+  "404 error received when attempting login. Route handling for /auth/login endpoint not resolving.",
   "هنگام تلاش برای ورود، خطای ۴۰۴ یافت نشد دریافت می‌شود. مدیریت مسیر برای نقطه پایانی /auth/login حل نمی‌شود.",
+  "Dashboard pages load over 5 seconds. JavaScript bundle over 2MB and uncompressed images.",
   "زمان بارگذاری صفحات پیشخوان بیش از ۵ ثانیه است. حجم بسته جاوااسکریپت بیش از ۲ مگابایت و تصاویر فشرده نشده‌اند.",
+  "Validation exception in backend validator for email field in registration form. Regex pattern inconsistent.",
   "استثنای اعتبارسنجی در اعتبارسنج پس‌زمینه برای فیلد ایمیل در فرم ثبت‌نام پرتاب می‌شود. الگوی منظم ناسازگار است.",
+  "Transaction rollback in data persistence. Constraint violation on foreign key relation in users table.",
   "بازگشت تراکنش در ذخیره‌سازی داده‌ها رخ می‌دهد. نقض محدودیت در رابطه کلید خارجی جدول کاربران.",
+  "PostgreSQL database connection timeout. Connection pool max size exceeded and query queue filled.",
   "تایم‌اوت اتصال به پایگاه داده پسست‌اس‌کیوال. اندازه استخر بیشینه تجاوز کرده و صف پرس‌وجو پر شده است.",
+  "TOTP code validation fails in 2FA authentication. Time drift between client and server NTP unsynced.",
   "اعتبارسنجی کد توتی‌پی در احراز هویت دو مرحله‌ای شکست می‌خورد. انحراف زمانی بین مشتری و سرور همگام‌سازی ان‌تی‌پی نشده است.",
+  "Memory leak in Node.js process. Heap usage increases 10% every 60 seconds without GC trigger.",
   "نشت حافظه در فرآیند نود.جی‌اس. استفاده از هیپ هر ۶۰ ثانیه ۱۰ درصد افزایش می‌یابد بدون فعال‌سازی جمع‌آوری زباله.",
+  "TCP connection reset by firewall. SYN-ACK packets dropped due to rate limiting.",
   "بازنشانی اتصال تی‌سی‌پی توسط دیوار آتش. بسته سین-ایک به دلیل محدودیت نرخ رها می‌شود.",
-  "خط لوله تجمیع در مانگودبی برای تولید گزارش شکست می‌خورد. مرحله گروه‌بندی با مسیر فیلد نامعتبر.",
-  "فیلتر پرس‌وجوی الستیک‌سرچ با تجزیه‌گر نادرست پیکربندی شده. ریشه‌یابی توکن‌سازی برای کلمات فارسی نادرست است.",
-  "جداسازی شنونده رویداد در دستکاری دی‌او‌ام شکست می‌خورد. چرخه مرجع حافظه در محدوده بسته.",
-  "خروجی سی‌اس‌وی از طریق کتابخانه آپاچی پی‌اوآی سقوط می‌کند. خطای کمبود حافظه در رندرینگ شیت با مجموعه داده بزرگ.",
-  "شکست رله اس‌ام‌تی‌پی در نودمی‌لر. عدم تطابق امضای دی‌کیم و رکورد اس‌پی‌اف نامعتبر.",
-  "آسیب‌پذیری تصاحب جلسه. بازتولید توکن سی‌اس‌آر‌اف پس از خروج پیاده‌سازی نشده.",
-  "تأخیر ابطال کش ردیش. انقضای تی‌تی‌ال همگام با به‌روزرسانی پایگاه داده تأخیر دارد.",
-  "شکست اعتبارسنجی هش بی‌کریپت. عدم تطابق دور نمک در نقطه پایانی به‌روزرسانی رمز عبور.",
-  "خطای اعمال سیاست آر‌بی‌ای‌سی. واسط میانی برای کنترل دسترسی مبتنی بر نقش رد می‌شود.",
-  "شکست ایدم‌پوتانسی حذف شی اس۳. خاتمه بارگذاری چندبخشی ناقص و متاداده کهنه.",
-  "عدم تطابق هیدراتاسیون اس‌اس‌آر در نکست.جی‌اس. راه‌اندازی حالت سمت مشتری با ای‌اچ‌تی‌ام‌ال رندر شده سرور تعارض دارد.",
-  "از دست رفتن حالت دکمه بازگشت مرورگر. فشار حالت تاریخچه بدون سریال‌سازی حالت.",
-  "تلاش تزریق اس‌کیوال مسدود شد اما تجزیه پرس‌وجو شکست. عدم تطابق پارامتر بستن دستور آماده.",
-  "شمارش دستگاه یو‌اس‌بی اچ‌آی‌دی در درایور هسته شکست. عدم تطابق شناسه فروشنده با قوانین یودو.",
-  "فعال‌سازی خفه‌سازی حرارتی سی‌پی‌یو. دمای هسته بیش از ۸۵ درجه سانتی‌گراد و مقیاس فرکانس به ۸۰۰ مگاهرتز کاهش می‌یابد.",
-  "پایداری روت‌کیت از طریق ال‌دی_پری‌لود. تزریق کتابخانه مخرب قلاب لینک‌کننده پویا.",
-  "شکست فعال‌سازی سیگنال تعلیق دی‌پی‌ام‌اس. افزونه سرور ایکس غیرفعال و حلقه کنترل نور پس‌زمینه.",
-  "تایم‌اوت دست‌دهی ۸۰۲.۱۱. احراز هویت دبلیو‌پی‌ای۳ اس‌ای‌ای با پارامتر گروه دی‌اچ ضعیف.",
-  "شکست بازپخش ژورنال ان‌تی‌اف‌اس پس از سقوط. فساد $LogFile و تعمیر اف‌اس‌سی‌کی مورد نیاز.",
-  "خطای استقرار به‌روزرسانی دبلیو‌اس‌یو‌اس. عدم تطابق هش فایل کَب و قطع انتقال بی‌تس.",
-  "شکست مذاکره پروتکل آی‌پی‌پی. پس‌زمینه چاپگر کاپس با مجموعه رمزنگاری تی‌ال‌اس ۱.۳ ناسازگار.",
-  "خطای نظرسنجی وضعیت باتری ای‌سی‌پی‌آی. تجزیه جدول اس‌ام‌بی‌آی‌اس شکست و برآورد ظرفیت نادقیق.",
 ];
 const ticketTitles = [
+  "404 Error on Login Endpoint",
   "خطای ۴۰۴ در آی‌پی لاگین",
+  "Dashboard Performance Optimization",
   "بهینه‌سازی عملکرد پیشخوان",
+  "Validation Failure in Registration Form",
   "شکست اعتبارسنجی در فرم ثبت‌نام",
+  "Transaction Error in Data Stability",
   "خطای تراکنش در پایداری داده",
+  "Database Connection Pool Overflow",
   "سرریز استخر اتصال پایگاه داده",
+  "2FA TOTP Sync Issue",
   "مشکل همگام‌سازی توتی‌پی ۲اف‌ای",
+  "Heap Memory Leak Detection",
   "شناسایی نشت حافظه هیپ",
+  "Network TCP Reset Anomaly",
   "ناهنجاری بازنشانی تی‌سی‌پی شبکه",
-  "باگ خط لوله تجمیع مانگودبی",
-  "کاهش ارتباط‌پذیری جستجوی الستیک‌سرچ",
-  "نشت رویداد دی‌او‌ام",
-  "سقوط خروجی اکسل کمبود حافظه",
-  "شکست اعتبارسنجی دی‌کیم/اس‌پی‌اف ایمیل",
-  "نقض امنیت جلسه",
-  "نقض سازگاری کش",
-  "عدم تطابق هش رمز عبور",
-  "رد واسط میانی آر‌بی‌ای‌سی",
-  "ایدم‌پوتانسی حذف ذخیره فایل",
-  "عدم تطابق هیدراتاسیون اس‌اس‌آر",
-  "از دست رفتن حالت تاریخچه مرورگر",
-  "اثر جانبی مسدودسازی تزریق اس‌کیوال",
-  "شمارش درایور دستگاه یو‌اس‌بی",
-  "شکست مدیریت حرارتی سی‌پی‌یو",
-  "شناسایی بارگذار روت‌کیت",
-  "خطای سیگنال تعلیق نمایش",
-  "تایم‌اوت احراز وای‌فای دبلیو‌پی‌ای۳",
-  "فساد ژورنال فایل‌سیستم",
-  "عدم تطابق هش به‌روزرسانی ویندوز",
-  "مذاکره تی‌ال‌اس آی‌پی‌پی چاپگر",
-  "نادقیق نظرسنجی باتری ای‌سی‌پی‌آی",
 ];
 const categories = ["نرم افزار", "سخت افزار", "شبکه", "سامانه", "پایگاه داده", "امنیت"];
 const supportAcks = [
+  "Ticket received. Reviewing log files.",
   "تیکت دریافت شد. فایل‌های لاگ را بررسی می‌کنیم.",
+  "Problem reproduced. Root cause analysis started.",
   "مشکل را تکرار کردیم. تحلیل علت ریشه شروع شده.",
-  "اولویت بالا تنظیم شد. تیم توسعه割り当て گردید.",
-  "جزئیات محیط نیاز است: نسخه سیستم عامل، نوع مرورگر.",
 ];
 const userQuestions = [
+  "Why is this exception thrown? Send full stack trace.",
   "چرا این استثنا پرتاب می‌شود؟ ردپای پشته کامل را بفرستید.",
+  "Temporary fix for production?",
   "راه‌حل موقت برای تولید چیست؟",
-  "آیا وصله فوری در نقشه راه هست؟ زمان تقریبی؟",
-  "تغییرات پیکربندی لازم است؟ نمونه یام‌ال بدهید.",
-  "هشدار نظارت برای این معیار راه‌اندازی کنیم؟",
-  "تعارض نسخه وابستگی است؟ فهرست الزامات چک شد؟",
-  "پیکربندی تعادل‌کننده بار تأثیر دارد؟ شکست بررسی سلامت؟",
-  "لاگ‌های کانتینر داکر را به اشتراک بگذاریم؟",
-  "محدودیت نرخ آی‌پی فعال شده؟ زمان بازنشانی سهمیه؟",
-  "قانون دیوار آتش مسدود کرده؟ خروجی ردیابی مسیر؟",
 ];
 const supportAnswers = [
+  "Exception due to null pointer in validator. Fix merged in PR #456.",
   "استثنا به دلیل اشاره‌گر خالی در اعتبارسنج است. رفع در درخواست کش #۴۵۶ ادغام شد.",
+  "Temporary fix: Clear cache and restart service. Permanent in v2.1.3.",
   "راه‌حل موقت: پاک کردن کش و راه‌اندازی مجدد سرویس. رفع دائمی نسخه ۲.۱.۳.",
-  "زمان تقریبی ۴۸ ساعت. موارد آزمون در صحنه‌سازی گذرانده شده.",
-  "نمونه پیکربندی: احراز هویت: { ttl: ۳۶۰۰ }. استقرار از طریق کیوبکتل اعمال.",
-  "راه‌اندازی هشدار: قانون پرومته‌وس برای استفاده_هیپ >۸۰%. یام‌ال پیوست.",
-  "تعارض نسخه با لادش ۴.۱۷. مشکلی در ۵.ایکس نیست.",
-  "بررسی سلامت تعادل‌کننده /healthz نقطه پایانی. فاصله ۱۰ ثانیه تنظیم کنید.",
-  "لاگ‌ها: داکر لاگ‌ها -ف کانتینر_آی‌دی | گِرِپ خطا. خروجی را به اشتراک بگذارید.",
-  "محدودیت نرخ ۱۰۰ درخواست در دقیقه. بازنشانی در نیمه‌شب یوتی‌سی.",
-  "دیوار آتش: یو‌اف‌دبلو اجازه ۴۴۳/تی‌سی‌پی. ردیابی: بدون از دست رفتن بسته.",
 ];
 const generateCommentText = (ticketIndex: number, commentIndex: number): string => {
   const responses = [...supportAcks, ...userQuestions, ...supportAnswers];
@@ -212,7 +172,7 @@ const generateTickets = (): Ticket[] => {
       const commentCount = 2 + Math.floor(Math.random() * 3); // 2-4
       let isSupportTurn = true; // Start with support ack
       for (let j = 0; j < commentCount; j++) {
-        const author = isSupportTurn ? "تیم پشتیبانی" : `کاربر ${i % 5}`;
+        const author = isSupportTurn ? "Support Team" : `User ${i % 5}`;
         comments.push({
           id: `C-${i}-${j}`,
           author,
@@ -275,17 +235,17 @@ const getStatusColor = (status: "open" | "in-progress" | "resolved") => {
 };
 const getStatusLabel = (status: string) => {
   const labels: { [key: string]: string } = {
-    open: "باز",
-    "in-progress": "در حال انجام",
-    resolved: "حل شده",
+    open: "Open",
+    "in-progress": "In Progress",
+    resolved: "Resolved",
   };
   return labels[status] || status;
 };
 const getPriorityLabel = (priority: string) => {
   const labels: { [key: string]: string } = {
-    high: "بالا",
-    medium: "متوسط",
-    low: "پایین",
+    high: "High",
+    medium: "Medium",
+    low: "Low",
   };
   return labels[priority] || priority;
 };
@@ -305,9 +265,9 @@ export default function TicketsPage() {
     if (!commentText[ticketId]?.trim()) return;
     const newComment: Comment = {
       id: Date.now().toString(),
-      author: "شما",
+      author: "You",
       text: commentText[ticketId],
-      timestamp: new Date().toLocaleString("fa-IR"),
+      timestamp: new Date().toLocaleString("en-US"),
     };
     setTicketComments((prev) => {
       const originalComments = tickets.find(t => t.id === ticketId)?.comments || [];
@@ -440,7 +400,7 @@ export default function TicketsPage() {
                       </Badge>
                       <Badge variant="outline">{ticket.category}</Badge>
                       {reviewedTickets.has(ticket.id) && (
-                        <Badge className="bg-black-100 text-green-800">بررسی شده</Badge>
+                        <Badge className="bg-black-100 text-green-800">Reviewed</Badge>
                       )}
                       <span className="text-xs text-muted-foreground">
                         {ticket.createdAt}
@@ -465,7 +425,7 @@ export default function TicketsPage() {
                 <div className="border-t px-6 py-4 bg-muted/30">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-semibold mb-2">توضیح کامل</h4>
+                      <h4 className="font-semibold mb-2">Full Description</h4>
                       <p className="text-sm text-foreground leading-relaxed">
                         {ticket.description}
                       </p>
@@ -473,19 +433,19 @@ export default function TicketsPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="text-xs text-muted-foreground mb-1">
-                          تاریخ ایجاد
+                          Created At
                         </p>
                         <p className="font-medium">{ticket.createdAt}</p>
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground mb-1">
-                          آخرین به‌روزرسانی
+                          Last Updated
                         </p>
                         <p className="font-medium">{ticket.updatedAt}</p>
                       </div>
                     </div>
                     <div className="border-t pt-4">
-                      <h4 className="font-semibold mb-3">نظرات ({ticketComments[ticket.id]?.length || ticket.comments?.length || 0})</h4>
+                      <h4 className="font-semibold mb-3">Comments ({ticketComments[ticket.id]?.length || ticket.comments?.length || 0})</h4>
                       <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
                         {(ticketComments[ticket.id] || ticket.comments || []).map((comment) => (
                           <div key={comment.id} className="bg-gray-100 dark:bg-black  p-3 rounded border border-gray-200">
@@ -504,12 +464,12 @@ export default function TicketsPage() {
                           onClick={() => setShowCommentForm((prev) => ({ ...prev, [ticket.id]: true }))}
                           className="w-full"
                         >
-                          افزودن نظر
+                          Add Comment
                         </Button>
                       ) : (
                         <div className="space-y-2">
                           <textarea
-                            placeholder="نظرتان را اینجا بنویسید..."
+                            placeholder="Write your comment here..."
                             className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             rows={3}
                             value={commentText[ticket.id] || ""}
@@ -523,14 +483,14 @@ export default function TicketsPage() {
                                 setShowCommentForm((prev) => ({ ...prev, [ticket.id]: false }));
                               }}
                             >
-                              ارسال نظر
+                              Submit
                             </Button>
                             <Button
                               size="sm"
                               variant="outline"
                               onClick={() => setShowCommentForm((prev) => ({ ...prev, [ticket.id]: false }))}
                             >
-                              لغو
+                              Cancel
                             </Button>
                           </div>
                         </div>
@@ -542,7 +502,7 @@ export default function TicketsPage() {
                         variant={reviewedTickets.has(ticket.id) ? "default" : "outline"}
                         onClick={() => handleReviewTicket(ticket.id)}
                       >
-                        {reviewedTickets.has(ticket.id) ? "✓ بررسی شده" : "بررسی"}
+                        {reviewedTickets.has(ticket.id) ? "✓ Reviewed" : "Review"}
                       </Button>
                     </div>
                   </div>
